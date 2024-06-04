@@ -1,4 +1,4 @@
-这是一个基于springboot+mybatisplus-vue的图书管理系统
+这是一个基于springboot+mybatisplus-vue的图书管理系统<br>
 Java版本：
 数据库：MySQL
 框架：spring boot + MyBatis
