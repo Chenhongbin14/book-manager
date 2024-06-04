@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookmanager.mapper.BookMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.bookmanager.pojo.Book">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="NAME" jdbcType="VARCHAR"/>
+            <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+            <result property="publishTime" column="publish_time" jdbcType="DATE"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="publishName" column="publish_name" jdbcType="VARCHAR"/>
+            <result property="selfTime" column="self_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,NAME,category_id,
+        publish_time,price,publish_name,
+        self_time
+    </sql>
+
+    <select id="findBookAndCategory" parameterType="Integer" resultType="com.example.bookmanager.pojo.resp.BookResp">
+    SELECT
+    book.id,
+    book.name,
+    book.category_id,
+    book.publish_time publishTime,
+    book.price,
+    book.publish_name publishName,
+    book.self_time selfTime,
+    book_category.name categoryName
+    FROM book
+    INNER JOIN book_category ON book.category_id=book_category.id
+    <where>
+        <if test="categoryId!=null and categoryId!=0">
+            and book_category.id=#{categoryId}
+        </if>
+    </where>
+    ORDER BY publishTime DESC
+    </select>
+
+</mapper>
+
